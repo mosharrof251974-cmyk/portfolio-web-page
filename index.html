@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mosharrof Hossain</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Mosharrof Hossain builds ERP, finance and production apps and shares practical lessons on finance, web, mobile and AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: split hero (thesis left, portrait right) over a live neural mesh, then
+   alternating bands: about, project ledger, knowledge hub, a hands-on finance lab, contact. */
+:root {
+  --ink: #070d18;        /* page ground, deep midnight */
+  --ink-2: #0c1626;      /* raised bands */
+  --panel: #111f33;      /* cards */
+  --line: #1f3350;
+  --text: #e6eef7;
+  --muted: #93a7bf;
+  --teal: #2bb8b3;       /* the suit colour from the brand photo */
+  --teal-deep: #0f5e66;
+  --gold: #e9b44c;       /* finance highlight */
+  --violet: #8c7cf0;     /* AI highlight */
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --step-0: 1rem; --step-1: 1.25rem; --step-2: 1.6rem; --step-3: 2.2rem; --step-4: clamp(2.4rem, 5.5vw, 4.2rem);
+  --radius: 14px;
+  --wrap: 1160px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--ink); color: var(--text);
+  font-family: var(--font-body); font-size: var(--step-0); line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--ink); }
+img { max-width: 100%; display: block; }
+a { color: var(--teal); }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.12; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px; }
+
+.wrap {
+  max-width: var(--wrap); margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.band { padding-block: clamp(64px, 9vw, 112px); }
+.band.alt { background: var(--ink-2); border-block: 1px solid var(--line); }
+.eyebrow {
+  font-family: var(--font-mono); font-size: .8rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--teal); display: inline-flex; align-items: center; gap: 10px;
+}
+.eyebrow::before { content: ""; width: 26px; height: 1px; background: currentColor; }
+.section-head { display: grid; gap: 14px; max-width: 680px; margin-bottom: 44px; }
+.section-head h2 { font-size: var(--step-3); }
+.section-head p { color: var(--muted); }
+
+/* Header */
+.site-head {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--ink) 82%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.site-head .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.logo { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
+.logo span { color: var(--teal); }
+.nav { display: flex; gap: 6px; align-items: center; }
+.nav a { color: var(--muted); text-decoration: none; padding: 8px 12px; border-radius: 8px; font-size: .95rem; }
+.nav a:hover { color: var(--text); background: var(--panel); }
+.nav a.cta { color: var(--ink); background: var(--teal); font-weight: 600; }
+.nav a.cta:hover { background: var(--gold); color: var(--ink); }
+.menu-btn { display: none; background: none; border: 1px solid var(--line); color: var(--text); border-radius: 8px; padding: 8px 12px; font: inherit; cursor: pointer; }
+@media (max-width: 760px) {
+  .menu-btn { display: inline-block; }
+  .nav { position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; align-items: stretch;
+    background: var(--ink-2); border-bottom: 1px solid var(--line);
+    padding: 10px max(16px, env(safe-area-inset-right, 0px)) 16px max(16px, env(safe-area-inset-left, 0px)); }
+  .nav:not(.open) { display: none; }
+}
+
+/* Hero */
+.hero { position: relative; overflow: hidden; }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .55; pointer-events: none; }
+.hero .wrap { position: relative; display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr); gap: clamp(28px, 5vw, 64px); align-items: center; padding-block: clamp(48px, 8vw, 96px); }
+.hero-copy { display: grid; gap: 22px; min-width: 0; }
+.hero h1 { font-size: var(--step-4); font-weight: 800; }
+.hero h1 em { font-style: normal; color: var(--teal); }
+.hero h1 .gold { color: var(--gold); }
+.hero .lead { font-size: var(--step-1); color: var(--muted); max-width: 34ch; }
+.hero .lead strong { color: var(--text); font-weight: 600; }
+.btns { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 600;
+  padding: 12px 20px; border-radius: 10px; border: 1px solid var(--teal); color: var(--teal); background: transparent; font: inherit; font-weight: 600; cursor: pointer;
+}
+.btn.solid { background: var(--teal); color: var(--ink); }
+.btn:hover { border-color: var(--gold); color: var(--gold); }
+.btn.solid:hover { background: var(--gold); color: var(--ink); }
+.topics { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--font-mono); font-size: .8rem; }
+.topics span { border: 1px solid var(--line); padding: 4px 10px; border-radius: 999px; color: var(--muted); }
+.socials { display: flex; flex-wrap: wrap; gap: 8px; }
+.socials a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); background: var(--panel); }
+.socials a:hover { color: var(--ink); background: var(--teal); border-color: var(--teal); }
+.socials svg { width: 18px; height: 18px; fill: currentColor; }
+
+.portrait { position: relative; justify-self: center; width: min(420px, 100%); }
+.portrait .frame { position: relative; aspect-ratio: 4 / 5; max-width: 100%; }
+.portrait .frame::before {
+  content: ""; position: absolute; inset: 16% 4% 0; border-radius: 999px 999px var(--radius) var(--radius);
+  background: radial-gradient(circle at 50% 30%, var(--teal) 0%, var(--teal-deep) 45%, var(--panel) 100%);
+  border: 1px solid var(--line);
+}
+.portrait .frame img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%;
+  filter: drop-shadow(0 18px 30px rgb(0 0 0 / .45));
+  -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%); mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+}
+.portrait .chip {
+  position: absolute; background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  padding: 10px 14px; font-size: .85rem; display: grid; gap: 2px; box-shadow: 0 12px 30px rgb(0 0 0 / .35);
+}
+.portrait .chip b { font-family: var(--font-display); font-size: 1.05rem; color: var(--text); }
+.portrait .chip small { color: var(--muted); font-family: var(--font-mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; }
+.chip.c1 { left: -18px; bottom: 18%; }
+.chip.c1 b { color: var(--teal); }
+.chip.c2 { right: -14px; top: 14%; }
+.chip.c2 b { color: var(--gold); }
+@media (max-width: 860px) {
+  .hero .wrap { grid-template-columns: minmax(0,1fr); }
+  .portrait { width: min(340px, 86%); }
+  .chip.c1 { left: -8px; } .chip.c2 { right: -8px; }
+}
+
+/* Quote strip */
+.quote { border-block: 1px solid var(--line); background: var(--ink-2); }
+.quote .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; padding-block: 22px; }
+.quote p { font-family: var(--font-display); font-size: var(--step-1); font-weight: 700; }
+.quote p span { color: var(--teal); }
+.quote ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 24px; font-family: var(--font-mono); font-size: .85rem; color: var(--muted); }
+.quote li::before { content: "▸ "; color: var(--gold); }
+
+/* About */
+.about { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.about-photo { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); width: 100%; max-width: 440px; }
+.about-copy { display: grid; gap: 18px; min-width: 0; }
+.about-copy h2 { font-size: var(--step-3); }
+.about-copy p { color: var(--muted); max-width: 62ch; }
+.about-copy p strong { color: var(--text); font-weight: 600; }
+.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 8px; }
+.skill { border-top: 1px solid var(--line); padding-top: 12px; display: grid; gap: 4px; }
+.skill b { font-family: var(--font-display); font-size: 1.05rem; }
+.skill span { color: var(--muted); font-size: .92rem; }
+.skill .k { font-family: var(--font-mono); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
+.k.fin { color: var(--gold); } .k.web { color: var(--teal); } .k.mob { color: #6fc3ff; } .k.ai { color: var(--violet); }
+@media (max-width: 860px) { .about { grid-template-columns: minmax(0,1fr); } }
+@media (max-width: 480px) { .skills { grid-template-columns: 1fr; } }
+
+/* Projects */
+.projects { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 18px; }
+.project {
+  grid-column: span 2; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 26px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 14px; min-width: 0;
+}
+.project.feature { grid-column: span 4; background: linear-gradient(145deg, var(--teal-deep), var(--panel) 70%); }
+.project.wide { grid-column: span 3; }
+.project-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.status { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; border: 1px solid currentColor; }
+.status.live { color: #5be0a0; }
+.status.built { color: var(--teal); }
+.status.service { color: var(--gold); }
+.status.next { color: var(--violet); }
+.ptype { font-family: var(--font-mono); font-size: .75rem; color: var(--muted); }
+.project h3 { font-size: var(--step-2); }
+.project.feature h3 { font-size: var(--step-3); }
+.project p { color: var(--muted); }
+.project ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.project li { font-size: .78rem; font-family: var(--font-mono); background: rgb(255 255 255 / .04); border: 1px solid var(--line); padding: 3px 9px; border-radius: 6px; color: var(--text); }
+@media (max-width: 960px) {
+  .project, .project.wide { grid-column: span 3; }
+  .project.feature { grid-column: span 6; }
+}
+@media (max-width: 620px) { .project, .project.wide, .project.feature { grid-column: span 6; } }
+
+/* Knowledge */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+.filters button {
+  font: inherit; font-size: .9rem; background: transparent; color: var(--muted); border: 1px solid var(--line);
+  padding: 7px 14px; border-radius: 999px; cursor: pointer;
+}
+.filters button[aria-pressed="true"] { background: var(--text); color: var(--ink); border-color: var(--text); }
+.posts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.post { border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; display: grid; gap: 10px; align-content: start; background: var(--ink); min-width: 0; }
+.post .meta { display: flex; justify-content: space-between; gap: 10px; font-family: var(--font-mono); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; }
+.post .meta .soon { color: var(--muted); }
+.post h3 { font-size: 1.2rem; }
+.post p { color: var(--muted); font-size: .95rem; }
+@media (max-width: 960px) { .posts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .posts { grid-template-columns: 1fr; } }
+
+/* Lab: break-even calculator */
+.lab { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(24px, 4vw, 48px); align-items: start; }
+.lab-copy { display: grid; gap: 16px; min-width: 0; }
+.lab-copy p { color: var(--muted); max-width: 58ch; }
+.formula { font-family: var(--font-mono); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; color: var(--gold); overflow-x: auto; font-size: .92rem; }
+.calc { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: grid; gap: 16px; min-width: 0; }
+.calc .tag { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.field { display: grid; gap: 6px; }
+.field label { font-size: .9rem; color: var(--muted); }
+.field input {
+  font: inherit; font-family: var(--font-mono); font-variant-numeric: tabular-nums; color: var(--text);
+  background: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; width: 100%;
+}
+.field input:focus { border-color: var(--teal); outline: none; }
+.result { border-top: 1px dashed var(--line); padding-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.result div { display: grid; gap: 2px; }
+.result small { color: var(--muted); font-size: .8rem; }
+.result b { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 1.25rem; color: var(--teal); font-weight: 500; }
+.result b.gold { color: var(--gold); }
+.bar { grid-column: 1 / -1; height: 10px; border-radius: 999px; background: var(--ink); border: 1px solid var(--line); overflow: hidden; }
+.bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--teal), var(--gold)); width: 0; transition: width .3s; }
+.note { grid-column: 1 / -1; font-size: .85rem; color: var(--muted); }
+@media (max-width: 860px) { .lab { grid-template-columns: minmax(0,1fr); } }
+
+/* Contact */
+.contact { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(24px, 4vw, 48px); align-items: start; }
+.contact-copy { display: grid; gap: 18px; min-width: 0; }
+.contact-copy p { color: var(--muted); }
+.me { display: flex; gap: 16px; align-items: center; }
+.me img { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; border: 2px solid var(--teal); }
+.me b { font-family: var(--font-display); font-size: 1.2rem; display: block; }
+.me span { color: var(--muted); font-size: .9rem; }
+.reach { display: grid; gap: 10px; }
+.reach div { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 10px; flex-wrap: wrap; }
+.reach dt { font-family: var(--font-mono); font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.reach dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.reach a { color: var(--text); text-decoration: none; }
+.reach a:hover { color: var(--teal); }
+form.msg { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: grid; gap: 14px; min-width: 0; }
+form.msg textarea { font: inherit; color: var(--text); background: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; width: 100%; min-height: 120px; resize: vertical; }
+form.msg input { font-family: var(--font-body); }
+form.msg textarea:focus { border-color: var(--teal); outline: none; }
+.sent { color: #5be0a0; font-size: .92rem; }
+@media (max-width: 860px) { .contact { grid-template-columns: minmax(0,1fr); } }
+
+footer { border-top: 1px solid var(--line); }
+footer .wrap { padding-block: 26px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; color: var(--muted); font-size: .88rem; }
+footer .wrap span:last-child { font-family: var(--font-mono); }
+
+.fade { animation: rise .7s ease both; }
+.fade.d2 { animation-delay: .12s; } .fade.d3 { animation-delay: .24s; }
+@keyframes rise { from { transform: translateY(14px); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .fade { animation: none; } }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="#top">Mosharrof<span>.</span></a>
+    <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#knowledge">Knowledge</a>
+      <a href="#lab">Finance lab</a>
+      <a class="cta" href="#contact">Work with me</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <canvas id="mesh" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow fade">Finance · Web · Mobile · AI</span>
+        <h1 class="fade d2">The world is changing through <em>AI knowledge</em>. I build the tools that put it to <span class="gold">work</span>.</h1>
+        <p class="lead fade d3">I'm <strong>Mosharrof Hossain</strong>. I design business software that runs real operations, from a web ERP in daily use at <strong>Ibrahim Knit</strong> to farm and personal finance apps, and I share what I learn so others can build too.</p>
+        <div class="btns fade d3">
+          <a class="btn solid" href="#projects">See my projects</a>
+          <a class="btn" href="#knowledge">Read & learn</a>
+        </div>
+        <div class="topics" aria-label="Topics I work on">
+          <span>ERP</span><span>Project profiles</span><span>Cost accounting</span><span>Mobile apps</span><span>Production planning</span><span>Applied AI</span>
+        </div>
+        <div class="socials" aria-label="Social profiles">
+          <a href="https://www.facebook.com/MOSHARROF.HOSSAIN.921230" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.7V14h2.7v8h3.1z"/></svg></a>
+          <a href="https://www.linkedin.com/in/MOSHARROF-HOSSAIN-52B52673" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg></a>
+          <a href="https://www.youtube.com/@MOSHARROF2574" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.8 15.1V8.9l5.8 3.1z"/></svg></a>
+          <a href="https://www.instagram.com/MOSHARROF_HOSSAIN" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 2.2c-2.7 0-3 0-4.1.1C4.4 2.4 2.4 4.4 2.3 7.9 2.2 9 2.2 9.3 2.2 12s0 3 .1 4.1c.1 3.5 2.1 5.5 5.6 5.6 1.1.1 1.4.1 4.1.1s3 0 4.1-.1c3.5-.1 5.5-2.1 5.6-5.6.1-1.1.1-1.4.1-4.1s0-3-.1-4.1c-.1-3.5-2.1-5.5-5.6-5.6C15 2.2 14.7 2.2 12 2.2zm0 1.8c2.7 0 3 0 4 .1 2.6.1 3.8 1.4 3.9 3.9.1 1 .1 1.3.1 4s0 3-.1 4c-.1 2.5-1.3 3.8-3.9 3.9-1 .1-1.3.1-4 .1s-3 0-4-.1c-2.6-.1-3.8-1.4-3.9-3.9-.1-1-.1-1.3-.1-4s0-3 .1-4C4.2 5.5 5.4 4.2 8 4.1c1-.1 1.3-.1 4-.1z"/></svg></a>
+        </div>
+      </div>
+      <div class="portrait fade d2">
+        <div class="frame"><img src="assets/img/portrait-cutout.webp" alt="Mosharrof Hossain in a grey suit" width="800" height="931"></div>
+        <div class="chip c1"><small>In production</small><b>Web ERP</b></div>
+        <div class="chip c2"><small>Fund sourcing</small><b>Project profiles</b></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="quote">
+    <div class="wrap">
+      <p>I don't follow the crowd, <span>I lead my own journey.</span></p>
+      <ul><li>Builder</li><li>Finance-minded</li><li>Teacher at heart</li></ul>
+    </div>
+  </div>
+
+  <section class="band" id="about">
+    <div class="wrap about">
+      <img class="about-photo" src="assets/img/brand-teal.jpg" alt="Mosharrof in a teal suit seated on large 3D letters of his name" width="900" height="1112" loading="lazy">
+      <div class="about-copy">
+        <span class="eyebrow">About me</span>
+        <h2>Software that understands the money behind the work.</h2>
+        <p>I started from the numbers. Every business I build for, whether a knitting factory, a fish farm or a household, comes down to the same questions: <strong>what does it cost, what does it earn, and where is the cash going?</strong> My software answers those questions every day.</p>
+        <p>Today I build web apps, prepare bankable project profiles for fund sourcing, and explore how AI can make planning, costing and reporting faster for small and mid-sized businesses. I write about all of it so the knowledge spreads.</p>
+        <div class="skills">
+          <div class="skill"><span class="k fin">Finance</span><b>Costing & project profiles</b><span>Feasibility, cash flow, break-even and loan-ready reports.</span></div>
+          <div class="skill"><span class="k web">Web apps</span><b>ERP & business systems</b><span>Orders, inventory, production and accounts in one place.</span></div>
+          <div class="skill"><span class="k mob">Mobile apps</span><b>Field & factory tools</b><span>Simple apps for the shop floor, the pond side and your pocket.</span></div>
+          <div class="skill"><span class="k ai">AI</span><b>Practical automation</b><span>Using AI to draft, check and explain business numbers.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt" id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Projects</span>
+        <h2>Built, running, and next on the bench.</h2>
+        <p>Each project started with a real business problem and a set of numbers that needed to add up.</p>
+      </div>
+      <div class="projects">
+        <article class="project feature">
+          <div class="project-top"><span class="status live">Live in production</span><span class="ptype">Web app</span></div>
+          <h3>Web ERP for Ibrahim Knit</h3>
+          <p>A web-based ERP running daily operations at Ibrahim Knit. It brings orders, materials, production and accounts together, so management sees one version of the truth instead of scattered spreadsheets.</p>
+          <ul><li>Order tracking</li><li>Inventory</li><li>Production</li><li>Accounts</li><li>Reports</li></ul>
+        </article>
+        <article class="project">
+          <div class="project-top"><span class="status service">Service</span><span class="ptype">Finance</span></div>
+          <h3>Project profiles for fund sourcing</h3>
+          <p>Loan- and investor-ready project profiles for any kind of venture, with market study, cost of project, means of finance and financial projections.</p>
+          <ul><li>Feasibility</li><li>Cash flow</li><li>DSCR</li></ul>
+        </article>
+        <article class="project wide">
+          <div class="project-top"><span class="status built">Built</span><span class="ptype">App</span></div>
+          <h3>Fish farm cost & income manager</h3>
+          <p>Tracks fingerlings, feed, labour and harvest sales pond by pond, so a farmer knows the true cost per kilo and the profit of every cycle.</p>
+          <ul><li>Pond-wise costing</li><li>Feed log</li><li>Harvest sales</li><li>Profit per cycle</li></ul>
+        </article>
+        <article class="project wide">
+          <div class="project-top"><span class="status built">Built</span><span class="ptype">App</span></div>
+          <h3>Personal money manager</h3>
+          <p>Records income and expenses by category, sets monthly budgets and shows where money goes, helping people save with intention.</p>
+          <ul><li>Budgets</li><li>Categories</li><li>Monthly summary</li></ul>
+        </article>
+        <article class="project wide">
+          <div class="project-top"><span class="status next">Exploring</span><span class="ptype">Mobile</span></div>
+          <h3>Mobile business apps</h3>
+          <p>Bringing the same costing and record-keeping to phones, so owners and supervisors can update and check numbers from anywhere.</p>
+          <ul><li>Offline-first</li><li>Android</li><li>Sync</li></ul>
+        </article>
+        <article class="project wide">
+          <div class="project-top"><span class="status next">Exploring</span><span class="ptype">Industry</span></div>
+          <h3>Industrial production management</h3>
+          <p>Line planning, daily output, efficiency and wastage tracking for factories, connected to costing so every batch shows its real margin.</p>
+          <ul><li>Planning</li><li>Efficiency</li><li>Wastage</li><li>Batch costing</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="knowledge">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Knowledge hub</span>
+        <h2>Learn finance, web, mobile and AI with me.</h2>
+        <p>Plain-language lessons from real projects. The first articles are being written now.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Filter articles by topic">
+        <button type="button" data-f="all" aria-pressed="true">All</button>
+        <button type="button" data-f="fin" aria-pressed="false">Finance</button>
+        <button type="button" data-f="web" aria-pressed="false">Web apps</button>
+        <button type="button" data-f="mob" aria-pressed="false">Mobile apps</button>
+        <button type="button" data-f="ai" aria-pressed="false">AI</button>
+      </div>
+      <div class="posts" id="posts">
+        <article class="post" data-t="fin"><div class="meta"><span class="k fin">Finance</span><span class="soon">Coming soon</span></div><h3>Read a project profile the way a banker does</h3><p>Cost of project, means of finance, and why the debt service coverage ratio decides most loans.</p></article>
+        <article class="post" data-t="fin"><div class="meta"><span class="k fin">Finance</span><span class="soon">Coming soon</span></div><h3>Costing a fish pond cycle</h3><p>Fingerlings, feed conversion ratio and survival rate: the three numbers behind fish farm profit.</p></article>
+        <article class="post" data-t="web"><div class="meta"><span class="k web">Web apps</span><span class="soon">Coming soon</span></div><h3>How an ERP follows a knit order from yarn to shipment</h3><p>What a factory needs to record at each step, and which reports management actually reads.</p></article>
+        <article class="post" data-t="mob"><div class="meta"><span class="k mob">Mobile apps</span><span class="soon">Coming soon</span></div><h3>Why factory apps should work offline first</h3><p>Weak signal on the floor shouldn't stop data entry. A simple pattern for syncing later.</p></article>
+        <article class="post" data-t="ai"><div class="meta"><span class="k ai">AI</span><span class="soon">Coming soon</span></div><h3>Using AI to draft and check a project profile</h3><p>Where AI saves hours, where you still need a human, and how to verify every figure it writes.</p></article>
+        <article class="post" data-t="fin"><div class="meta"><span class="k fin">Finance</span><span class="soon">Coming soon</span></div><h3>A household budget that survives the month</h3><p>Fixed costs, flexible spending and savings first: a practical method using the money manager app.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt" id="lab">
+    <div class="wrap lab">
+      <div class="lab-copy">
+        <span class="eyebrow">Finance lab</span>
+        <h2 style="font-size:var(--step-3)">Try it: when does a project start making profit?</h2>
+        <p>Every project profile I prepare answers this question. The break-even point is the sales volume where income exactly covers all costs. Below it you lose money; above it every unit adds profit.</p>
+        <div class="formula">Break-even units = Fixed costs ÷ (Price per unit − Variable cost per unit)</div>
+        <p>Change the example numbers to see how price and cost move the target. The figures are a sample fish-farm cycle in Taka, not real client data.</p>
+      </div>
+      <form class="calc" id="calc" autocomplete="off">
+        <span class="tag">Example · fish farm cycle (BDT)</span>
+        <div class="field"><label for="fc">Fixed costs for the cycle (pond lease, labour, equipment)</label><input id="fc" type="number" min="0" step="1000" value="250000"></div>
+        <div class="field"><label for="pr">Selling price per kg</label><input id="pr" type="number" min="0" step="5" value="180"></div>
+        <div class="field"><label for="vc">Variable cost per kg (feed, fingerlings, medicine)</label><input id="vc" type="number" min="0" step="5" value="115"></div>
+        <div class="field"><label for="ex">Expected harvest (kg)</label><input id="ex" type="number" min="0" step="100" value="6000"></div>
+        <div class="result" aria-live="polite">
+          <div><small>Contribution per kg</small><b id="r-cm">–</b></div>
+          <div><small>Break-even harvest</small><b id="r-be">–</b></div>
+          <div><small>Break-even sales</small><b id="r-bs">–</b></div>
+          <div><small>Profit at expected harvest</small><b class="gold" id="r-pf">–</b></div>
+          <div class="bar" aria-hidden="true"><i id="r-bar"></i></div>
+          <p class="note" id="r-note"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="band" id="contact">
+    <div class="wrap contact">
+      <div class="contact-copy">
+        <span class="eyebrow">Contact</span>
+        <h2 style="font-size:var(--step-3)">Have a project, a factory, or a question?</h2>
+        <p>I can help with an ERP or business app, a project profile for a bank loan or investor, or a plain explanation of the numbers. Send a note and tell me what you're working on.</p>
+        <div class="me">
+          <img src="assets/img/headshot.jpg" alt="Mosharrof Hossain portrait" width="458" height="474" loading="lazy">
+          <div><b>Mosharrof Hossain</b><span>Web & mobile app builder · Finance & project profiles</span></div>
+        </div>
+        <dl class="reach">
+          <div><dt>Email</dt><dd><a href="mailto:mosharrof251974@gmail.com">mosharrof251974@gmail.com</a></dd></div>
+          <div><dt>Phone</dt><dd><a href="tel:+8801764198171">+880 1764-198171</a></dd></div>
+          <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/MOSHARROF-HOSSAIN-52B52673" target="_blank" rel="noopener">mosharrof-hossain-52b52673</a></dd></div>
+          <div><dt>Facebook</dt><dd><a href="https://www.facebook.com/MOSHARROF.HOSSAIN.921230" target="_blank" rel="noopener">MOSHARROF.HOSSAIN.921230</a></dd></div>
+          <div><dt>YouTube</dt><dd><a href="https://www.youtube.com/@MOSHARROF2574" target="_blank" rel="noopener">@MOSHARROF2574</a></dd></div>
+          <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/MOSHARROF_HOSSAIN" target="_blank" rel="noopener">@MOSHARROF_HOSSAIN</a></dd></div>
+        </dl>
+      </div>
+      <form class="msg" id="msg">
+        <div class="field"><label for="m-name">Your name</label><input id="m-name" required></div>
+        <div class="field"><label for="m-mail">Email or phone</label><input id="m-mail" required></div>
+        <div class="field"><label for="m-body">What are you working on?</label><textarea id="m-body" required></textarea></div>
+        <button class="btn solid" type="submit">Send message</button>
+        <p class="sent" id="m-sent" hidden>Your email app should open with the message ready to send. If it doesn't, write to mosharrof251974@gmail.com.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="yr">2026</span> Mosharrof Hossain. Building with knowledge.</span>
+    <span>finance · web · mobile · ai</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Mobile menu
+  var btn = document.getElementById('menu-btn'), nav = document.getElementById('nav');
+  btn.addEventListener('click', function () {
+    var open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  });
+  nav.addEventListener('click', function (e) {
+    if (e.target.tagName === 'A') { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  });
+
+  // Knowledge filters
+  var fbtns = document.querySelectorAll('.filters button'), posts = document.querySelectorAll('.post');
+  fbtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      fbtns.forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+      posts.forEach(function (p) { p.hidden = b.dataset.f !== 'all' && p.dataset.t !== b.dataset.f; });
+    });
+  });
+
+  // Break-even calculator
+  var fmt = new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 });
+  function v(id) { return parseFloat(document.getElementById(id).value) || 0; }
+  function set(id, t) { document.getElementById(id).textContent = t; }
+  function calc() {
+    var fc = v('fc'), pr = v('pr'), vc = v('vc'), ex = v('ex'), cm = pr - vc;
+    set('r-cm', '৳ ' + fmt.format(cm));
+    if (cm <= 0) {
+      set('r-be', 'Never'); set('r-bs', '–'); set('r-pf', '৳ ' + fmt.format(ex * cm - fc));
+      document.getElementById('r-bar').style.width = '0';
+      set('r-note', 'The price does not cover the variable cost, so every extra kilo adds to the loss. Raise the price or cut feed and fingerling cost.');
+      return;
+    }
+    var be = fc / cm, pf = ex * cm - fc;
+    set('r-be', fmt.format(Math.ceil(be)) + ' kg');
+    set('r-bs', '৳ ' + fmt.format(Math.ceil(be) * pr));
+    set('r-pf', '৳ ' + fmt.format(pf));
+    document.getElementById('r-bar').style.width = Math.min(100, ex ? (be / ex) * 100 : 100) + '%';
+    set('r-note', ex >= be
+      ? 'You pass break-even at ' + Math.round((be / ex) * 100) + '% of the expected harvest. The margin of safety is ' + fmt.format(Math.floor(ex - be)) + ' kg.'
+      : 'The expected harvest is ' + fmt.format(Math.ceil(be - ex)) + ' kg short of break-even. This cycle would run at a loss.');
+  }
+  document.getElementById('calc').addEventListener('input', calc);
+  document.getElementById('calc').addEventListener('submit', function (e) { e.preventDefault(); });
+  calc();
+
+  // Contact form (static site: no server yet)
+  document.getElementById('msg').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.getElementById('m-name').value, from = document.getElementById('m-mail').value, body = document.getElementById('m-body').value;
+    var href = 'mailto:mosharrof251974@gmail.com?subject=' + encodeURIComponent('Website enquiry from ' + name) +
+      '&body=' + encodeURIComponent(body + '\n\n' + name + '\n' + from);
+    document.getElementById('m-sent').hidden = false;
+    window.location.href = href;
+  });
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Neural mesh background
+  var cv = document.getElementById('mesh'), ctx = cv.getContext('2d');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var pts = [], W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  function size() {
+    var r = cv.getBoundingClientRect(); W = r.width; H = r.height;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var n = Math.round(Math.min(70, W * H / 14000));
+    pts = [];
+    for (var i = 0; i < n; i++) pts.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3, g: Math.random() < .15 });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < pts.length; i++) {
+      var a = pts[i];
+      for (var j = i + 1; j < pts.length; j++) {
+        var b = pts[j], dx = a.x - b.x, dy = a.y - b.y, d = dx * dx + dy * dy;
+        if (d < 15000) {
+          ctx.strokeStyle = 'rgba(43,184,179,' + (0.28 * (1 - d / 15000)) + ')';
+          ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+      ctx.fillStyle = a.g ? '#e9b44c' : '#2bb8b3';
+      ctx.beginPath(); ctx.arc(a.x, a.y, a.g ? 2.4 : 1.6, 0, 6.283); ctx.fill();
+    }
+  }
+  function step() {
+    pts.forEach(function (p) {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+    });
+    draw(); requestAnimationFrame(step);
+  }
+  size(); window.addEventListener('resize', size);
+  if (reduce) draw(); else step();
+})();
+</script>
+</body>
+</html>
