@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mosharrof Hossain</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Mosharrof Hossain builds ERP, finance and production apps and shares practical lessons on finance, web, mobile and AI.">
+<meta name="description" content="Mosharrof Hossain prepares bank-ready project profiles for every industry and builds ERP and finance apps.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -250,6 +250,63 @@ form.msg textarea:focus { border-color: var(--teal); outline: none; }
 .sent { color: #5be0a0; font-size: .92rem; }
 @media (max-width: 860px) { .contact { grid-template-columns: minmax(0,1fr); } }
 
+/* Project profile service */
+.pp-intro { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: clamp(24px,4vw,56px); align-items: end; margin-bottom: 44px; }
+.pp-intro .section-head { margin-bottom: 0; }
+.pp-intro .section-head h2 { font-size: var(--step-4); }
+.pp-promise { display: grid; gap: 10px; border-left: 2px solid var(--gold); padding-left: 18px; color: var(--muted); }
+.pp-promise b { color: var(--text); font-family: var(--font-display); font-size: var(--step-1); }
+.case { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(0,.8fr); background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.case figure { margin: 0; position: relative; min-height: 280px; }
+.case figure img { width: 100%; height: 100%; object-fit: cover; }
+.case figcaption { position: absolute; left: 14px; bottom: 14px; right: 14px; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .06em; color: #e6eef7; background: rgb(7 13 24 / .72); padding: 6px 10px; border-radius: 6px; width: fit-content; max-width: calc(100% - 28px); }
+.case-body { padding: clamp(22px,3vw,34px); display: grid; gap: 16px; align-content: start; min-width: 0; }
+.case-body h3 { font-size: var(--step-2); }
+.case-body p { color: var(--muted); }
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; margin: 0; }
+.facts div { border-top: 1px solid var(--line); padding-top: 10px; }
+.facts dt { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 0; font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--gold); font-variant-numeric: tabular-nums; }
+.deliv { display: flex; flex-wrap: wrap; gap: 8px; }
+.deliv span { font-size: .8rem; font-family: var(--font-mono); padding: 4px 10px; border-radius: 999px; background: rgb(43 184 179 / .12); color: var(--teal); border: 1px solid rgb(43 184 179 / .35); }
+@media (max-width: 900px) { .case, .pp-intro { grid-template-columns: minmax(0,1fr); } }
+.sub-h { font-size: var(--step-2); margin: 56px 0 22px; }
+.contents { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.contents div { padding: 20px 22px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; gap: 6px; align-content: start; min-width: 0; }
+.contents div:nth-child(3n) { border-right: 0; }
+.contents div:nth-last-child(-n+3) { border-bottom: 0; }
+.contents b { font-family: var(--font-display); font-size: 1.08rem; }
+.contents span { color: var(--muted); font-size: .92rem; }
+@media (max-width: 900px) {
+  .contents { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .contents div:nth-child(3n) { border-right: 1px solid var(--line); }
+  .contents div:nth-child(2n) { border-right: 0; }
+  .contents div:nth-last-child(-n+3) { border-bottom: 1px solid var(--line); }
+  .contents div:nth-last-child(-n+2) { border-bottom: 0; }
+}
+@media (max-width: 560px) {
+  .contents { grid-template-columns: minmax(0,1fr); }
+  .contents div { border-right: 0 !important; border-bottom: 1px solid var(--line) !important; }
+  .contents div:last-child { border-bottom: 0 !important; }
+}
+.inds { display: flex; flex-wrap: wrap; gap: 10px; }
+.inds span { padding: 9px 16px; border-radius: 10px; background: var(--ink); border: 1px solid var(--line); font-size: .95rem; }
+.inds span.on { border-color: var(--gold); color: var(--gold); }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 14px; counter-reset: st; }
+.steps li { counter-increment: st; display: grid; gap: 6px; align-content: start; padding-top: 14px; border-top: 2px solid var(--teal-deep); min-width: 0; }
+.steps li::before { content: "Step " counter(st); font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--teal); }
+.steps b { font-family: var(--font-display); font-size: 1.05rem; }
+.steps span { color: var(--muted); font-size: .9rem; }
+@media (max-width: 960px) { .steps { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 520px) { .steps { grid-template-columns: minmax(0,1fr); } }
+.pp-cta { margin-top: 44px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; padding: 24px 28px; border-radius: var(--radius); background: linear-gradient(120deg, var(--teal-deep), var(--panel)); border: 1px solid var(--line); }
+.pp-cta p { font-family: var(--font-display); font-size: var(--step-1); font-weight: 700; }
+form.msg select { font: inherit; color: var(--text); background: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; width: 100%; }
+form.msg select:focus { border-color: var(--teal); outline: none; }
+.row2 { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+@media (max-width: 520px) { .row2 { grid-template-columns: minmax(0,1fr); } }
+.form-title { font-family: var(--font-display); font-size: var(--step-1); font-weight: 700; }
+
 footer { border-top: 1px solid var(--line); }
 footer .wrap { padding-block: 26px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; color: var(--muted); font-size: .88rem; }
 footer .wrap span:last-child { font-family: var(--font-mono); }
@@ -267,11 +324,12 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
     <a class="logo" href="#top">Mosharrof<span>.</span></a>
     <button class="menu-btn" id="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
     <nav class="nav" id="nav" aria-label="Main">
+      <a href="#profiles">Project profiles</a>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#knowledge">Knowledge</a>
-      <a href="#lab">Mortgage calculator</a>
-      <a class="cta" href="#contact">Work with me</a>
+      <a href="#lab">Calculator</a>
+      <a class="cta" href="#contact">Order a profile</a>
     </nav>
   </div>
 </header>
@@ -283,10 +341,10 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
       <div class="hero-copy">
         <span class="eyebrow fade">Finance · Web · Mobile · AI</span>
         <h1 class="fade d2">The world is changing through <em>AI knowledge</em>. I build the tools that put it to <span class="gold">work</span>.</h1>
-        <p class="lead fade d3">I'm <strong>Mosharrof Hossain</strong>. I design business software that runs real operations, from a web ERP in daily use at <strong>Ibrahim Knit</strong> to farm and personal finance apps, and I share what I learn so others can build too.</p>
+        <p class="lead fade d3">I'm <strong>Mosharrof Hossain</strong>. I prepare <strong>bank-ready project profiles for every industry</strong> and build the business software behind them, from a web ERP in daily use at <strong>Ibrahim Knit</strong> to farm and personal finance apps.</p>
         <div class="btns fade d3">
-          <a class="btn solid" href="#projects">See my projects</a>
-          <a class="btn" href="#knowledge">Read & learn</a>
+          <a class="btn solid" href="#contact">Order a project profile</a>
+          <a class="btn" href="#profiles">See a sample profile</a>
         </div>
         <div class="topics" aria-label="Topics I work on">
           <span>ERP</span><span>Project profiles</span><span>Cost accounting</span><span>Home loans</span><span>Mobile apps</span><span>Production planning</span><span>Applied AI</span>
@@ -313,7 +371,75 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
     </div>
   </div>
 
-  <section class="band" id="about">
+  <section class="band" id="profiles">
+    <div class="wrap">
+      <div class="pp-intro">
+        <div class="section-head">
+          <span class="eyebrow">Project profiles · now taking orders</span>
+          <h2>Bank-ready project profiles for any industry.</h2>
+          <p>A project profile is what a bank or investor reads before deciding to fund you. I write the full document and the presentation deck, with a financial model that holds up when the credit officer checks every number.</p>
+        </div>
+        <div class="pp-promise">
+          <b>You bring the idea and the quotations. I turn them into a fundable case.</b>
+          <span>Every profile is built to the questions credit committees ask: what does it cost, who pays for it, how is the loan repaid, and what happens if things go wrong.</span>
+        </div>
+      </div>
+
+      <article class="case">
+        <figure>
+          <img src="assets/img/rifty-rendering.webp" alt="Architectural rendering of the proposed Rifty Knitwears six-storey factory building" width="1280" height="720" loading="lazy">
+          <figcaption>Sample work · Rifty Knitwears (Pvt.) Ltd., Narayanganj</figcaption>
+        </figure>
+        <div class="case-body">
+          <span class="eyebrow">Recent profile</span>
+          <h3>A 210-machine circular knitting project, submitted for term-loan finance</h3>
+          <p>A greenfield knitting unit beside the Ibrahim Knit Garments complex, weighted toward fancy fabrics that Bangladesh still imports. The pack covered the full project from building layout to a ten-year financial case.</p>
+          <dl class="facts">
+            <div><dt>Machines</dt><dd>210</dd></div>
+            <div><dt>Capacity</dt><dd>20,160 MT/yr</dd></div>
+            <div><dt>Factory building</dt><dd>1,50,000 sft</dd></div>
+            <div><dt>Projection horizon</dt><dd>10 years</dd></div>
+          </dl>
+          <div class="deliv"><span>19-section project profile</span><span>21-slide bank presentation</span><span>Charts & schedules</span></div>
+        </div>
+      </article>
+
+      <h3 class="sub-h">What every profile includes</h3>
+      <div class="contents">
+        <div><b>Executive summary</b><span>The project at a glance and the headline financial indicators a banker reads first.</span></div>
+        <div><b>Promoters & company</b><span>Sponsor background, track record, capital structure and shareholding.</span></div>
+        <div><b>Location, building & layout</b><span>Site advantages, building specification and floor-wise process flow.</span></div>
+        <div><b>Machinery & capacity</b><span>Machine schedule, product range, installed capacity and utilisation plan.</span></div>
+        <div><b>Project cost & means of finance</b><span>Capital expenditure, working capital, equity and term-loan split.</span></div>
+        <div><b>Revenue model & assumptions</b><span>Pricing basis, operating costs and manpower, each assumption stated openly.</span></div>
+        <div><b>Financial projections</b><span>Profit and loss, depreciation and loan repayment schedules over five to ten years.</span></div>
+        <div><b>Viability measures</b><span>IRR, NPV, payback, DSCR, return on equity and break-even point.</span></div>
+        <div><b>Sensitivity, risk & schedule</b><span>Interest-rate stress test, risk register, implementation timeline and compliance.</span></div>
+      </div>
+
+      <h3 class="sub-h">Industries I prepare profiles for</h3>
+      <p style="color:var(--muted);margin:-10px 0 18px;font-size:.92rem">Highlighted: industries where I have already delivered profiles or software.</p>
+      <div class="inds">
+        <span class="on">Knitting, dyeing & garments</span><span>Textile & spinning</span><span class="on">Fisheries & aquaculture</span><span>Poultry & dairy</span><span>Agro & food processing</span><span>Light engineering & manufacturing</span><span>Plastic & packaging</span><span>Pharmaceuticals</span><span>Real estate & construction</span><span>Hospitals & clinics</span><span>Education</span><span>Renewable energy</span><span>Trading & SMEs</span>
+      </div>
+
+      <h3 class="sub-h">How an order works</h3>
+      <ol class="steps">
+        <li><b>Discuss the project</b><span>We talk through your idea, the loan amount you need and the bank you plan to approach.</span></li>
+        <li><b>Collect the data</b><span>Quotations, land and building details, machinery lists, sales and cost estimates.</span></li>
+        <li><b>Build the financial model</b><span>Cost, finance, projections and viability ratios, all linked and checked.</span></li>
+        <li><b>Write profile & deck</b><span>The full project profile plus a presentation deck for the bank meeting.</span></li>
+        <li><b>Review & submit</b><span>You review, I revise, and you submit with confidence. Bank queries are answered too.</span></li>
+      </ol>
+
+      <div class="pp-cta">
+        <p>Planning a new factory, farm or expansion?</p>
+        <a class="btn solid" href="#contact">Order your project profile</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt" id="about">
     <div class="wrap about">
       <img class="about-photo" src="assets/img/brand-teal.jpg" alt="Mosharrof in a teal suit seated on large 3D letters of his name" width="900" height="1112" loading="lazy">
       <div class="about-copy">
@@ -331,7 +457,7 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
     </div>
   </section>
 
-  <section class="band alt" id="projects">
+  <section class="band" id="projects">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Projects</span>
@@ -346,9 +472,9 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
           <ul><li>Order tracking</li><li>Inventory</li><li>Production</li><li>Accounts</li><li>Reports</li></ul>
         </article>
         <article class="project">
-          <div class="project-top"><span class="status service">Service</span><span class="ptype">Finance</span></div>
+          <div class="project-top"><span class="status service">Taking orders</span><span class="ptype">Finance</span></div>
           <h3>Project profiles for fund sourcing</h3>
-          <p>Loan- and investor-ready project profiles for any kind of venture, with market study, cost of project, means of finance and financial projections.</p>
+          <p>Loan- and investor-ready project profiles for any industry, with a bank presentation deck. Recent work: Rifty Knitwears, a 210-machine knitting project.</p>
           <ul><li>Feasibility</li><li>Cash flow</li><li>DSCR</li></ul>
         </article>
         <article class="project wide">
@@ -379,7 +505,7 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
     </div>
   </section>
 
-  <section class="band" id="knowledge">
+  <section class="band alt" id="knowledge">
     <div class="wrap">
       <div class="section-head">
         <span class="eyebrow">Knowledge hub</span>
@@ -404,7 +530,7 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
     </div>
   </section>
 
-  <section class="band alt" id="lab">
+  <section class="band" id="lab">
     <div class="wrap lab">
       <div class="lab-copy">
         <span class="eyebrow">Finance lab</span>
@@ -431,15 +557,15 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
     </div>
   </section>
 
-  <section class="band" id="contact">
+  <section class="band alt" id="contact">
     <div class="wrap contact">
       <div class="contact-copy">
         <span class="eyebrow">Contact</span>
-        <h2 style="font-size:var(--step-3)">Have a project, a factory, or a question?</h2>
-        <p>I can help with an ERP or business app, a project profile for a bank loan or investor, or a plain explanation of the numbers. Send a note and tell me what you're working on.</p>
+        <h2 style="font-size:var(--step-3)">Order a project profile, or just ask a question.</h2>
+        <p>Tell me about your project and the finance you need. I'll reply with what I need from you, the timeline and the fee. I also take on ERP and business app work.</p>
         <div class="me">
           <img src="assets/img/headshot.jpg" alt="Mosharrof Hossain portrait" width="458" height="474" loading="lazy">
-          <div><b>Mosharrof Hossain</b><span>Web & mobile app builder · Finance & project profiles</span></div>
+          <div><b>Mosharrof Hossain</b><span>Project profiles for fund sourcing · ERP & business apps</span></div>
         </div>
         <dl class="reach">
           <div><dt>Email</dt><dd><a href="mailto:mosharrof251974@gmail.com">mosharrof251974@gmail.com</a></dd></div>
@@ -451,11 +577,24 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
         </dl>
       </div>
       <form class="msg" id="msg">
-        <div class="field"><label for="m-name">Your name</label><input id="m-name" required></div>
-        <div class="field"><label for="m-mail">Email or phone</label><input id="m-mail" required></div>
-        <div class="field"><label for="m-body">What are you working on?</label><textarea id="m-body" required></textarea></div>
-        <button class="btn solid" type="submit">Send message</button>
-        <p class="sent" id="m-sent" hidden>Your email app should open with the message ready to send. If it doesn't, write to mosharrof251974@gmail.com.</p>
+        <span class="form-title">Project profile order</span>
+        <div class="row2">
+          <div class="field"><label for="m-name">Your name</label><input id="m-name" required></div>
+          <div class="field"><label for="m-mail">Email or phone</label><input id="m-mail" required></div>
+        </div>
+        <div class="field"><label for="m-co">Company or project name</label><input id="m-co"></div>
+        <div class="row2">
+          <div class="field"><label for="m-ind">Industry</label><select id="m-ind">
+            <option>Knitting, dyeing & garments</option><option>Textile & spinning</option><option>Fisheries & aquaculture</option><option>Poultry & dairy</option><option>Agro & food processing</option><option>Manufacturing & engineering</option><option>Pharmaceuticals</option><option>Real estate & construction</option><option>Healthcare or education</option><option>Renewable energy</option><option>Trading & SMEs</option><option>Other</option>
+          </select></div>
+          <div class="field"><label for="m-need">What you need</label><select id="m-need">
+            <option>Project profile + bank presentation</option><option>Project profile only</option><option>Bank presentation only</option><option>ERP or business app</option><option>Something else</option>
+          </select></div>
+        </div>
+        <div class="field"><label for="m-cost">Approximate project cost or loan amount (BDT)</label><input id="m-cost" placeholder="For example, 5 crore"></div>
+        <div class="field"><label for="m-body">Tell me about the project</label><textarea id="m-body" required></textarea></div>
+        <button class="btn solid" type="submit">Send order request</button>
+        <p class="sent" id="m-sent" hidden>Your email app should open with the request ready to send. If it doesn't, write to mosharrof251974@gmail.com or call +880 1764-198171.</p>
       </form>
     </div>
   </section>
@@ -519,9 +658,13 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
   // Contact form (static site: no server yet)
   document.getElementById('msg').addEventListener('submit', function (e) {
     e.preventDefault();
-    var name = document.getElementById('m-name').value, from = document.getElementById('m-mail').value, body = document.getElementById('m-body').value;
-    var href = 'mailto:mosharrof251974@gmail.com?subject=' + encodeURIComponent('Website enquiry from ' + name) +
-      '&body=' + encodeURIComponent(body + '\n\n' + name + '\n' + from);
+    function g(id) { return document.getElementById(id).value.trim(); }
+    var lines = [
+      'Name: ' + g('m-name'), 'Contact: ' + g('m-mail'), 'Company / project: ' + g('m-co'),
+      'Industry: ' + g('m-ind'), 'Need: ' + g('m-need'), 'Project cost / loan: ' + g('m-cost'), '', g('m-body')
+    ];
+    var href = 'mailto:mosharrof251974@gmail.com?subject=' + encodeURIComponent(g('m-need') + ' request from ' + g('m-name')) +
+      '&body=' + encodeURIComponent(lines.join('\n'));
     document.getElementById('m-sent').hidden = false;
     window.location.href = href;
   });
