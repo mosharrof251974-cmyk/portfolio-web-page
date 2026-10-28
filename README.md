@@ -1,4 +1,4 @@
-# Mosharrof Hossain · Portfolio
+# Mohammad Mosharrof Hossain · Portfolio
 
 Personal website: AI and education themed portfolio covering ERP, finance apps, project profiles for fund sourcing, and a knowledge hub on finance, web, mobile and AI.
 
