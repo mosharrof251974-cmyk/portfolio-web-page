@@ -270,7 +270,7 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#knowledge">Knowledge</a>
-      <a href="#lab">Finance lab</a>
+      <a href="#lab">Mortgage calculator</a>
       <a class="cta" href="#contact">Work with me</a>
     </nav>
   </div>
@@ -289,7 +289,7 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
           <a class="btn" href="#knowledge">Read & learn</a>
         </div>
         <div class="topics" aria-label="Topics I work on">
-          <span>ERP</span><span>Project profiles</span><span>Cost accounting</span><span>Mobile apps</span><span>Production planning</span><span>Applied AI</span>
+          <span>ERP</span><span>Project profiles</span><span>Cost accounting</span><span>Home loans</span><span>Mobile apps</span><span>Production planning</span><span>Applied AI</span>
         </div>
         <div class="socials" aria-label="Social profiles">
           <a href="https://www.facebook.com/MOSHARROF.HOSSAIN.921230" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.5 1.6-1.5h1.7V4.4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.4H7.7V14h2.7v8h3.1z"/></svg></a>
@@ -408,22 +408,22 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
     <div class="wrap lab">
       <div class="lab-copy">
         <span class="eyebrow">Finance lab</span>
-        <h2 style="font-size:var(--step-3)">Try it: when does a project start making profit?</h2>
-        <p>Every project profile I prepare answers this question. The break-even point is the sales volume where income exactly covers all costs. Below it you lose money; above it every unit adds profit.</p>
-        <div class="formula">Break-even units = Fixed costs ÷ (Price per unit − Variable cost per unit)</div>
-        <p>Change the example numbers to see how price and cost move the target. The figures are a sample fish-farm cycle in Taka, not real client data.</p>
+        <h2 style="font-size:var(--step-3)">Mortgage calculator: what will your home loan really cost?</h2>
+        <p>A home loan is repaid in equal monthly instalments (EMI). In the early years most of each instalment goes to interest; later, most of it repays the principal. A small change in rate or term moves the total cost by lakhs.</p>
+        <div class="formula">EMI = P × r × (1 + r)<sup>n</sup> ÷ ((1 + r)<sup>n</sup> − 1)</div>
+        <p>Here P is the loan amount, r is the monthly interest rate (annual rate ÷ 12), and n is the number of months. Change the example figures to compare options before you talk to a bank.</p>
       </div>
       <form class="calc" id="calc" autocomplete="off">
-        <span class="tag">Example · fish farm cycle (BDT)</span>
-        <div class="field"><label for="fc">Fixed costs for the cycle (pond lease, labour, equipment)</label><input id="fc" type="number" min="0" step="1000" value="250000"></div>
-        <div class="field"><label for="pr">Selling price per kg</label><input id="pr" type="number" min="0" step="5" value="180"></div>
-        <div class="field"><label for="vc">Variable cost per kg (feed, fingerlings, medicine)</label><input id="vc" type="number" min="0" step="5" value="115"></div>
-        <div class="field"><label for="ex">Expected harvest (kg)</label><input id="ex" type="number" min="0" step="100" value="6000"></div>
+        <span class="tag">Example · home loan (BDT)</span>
+        <div class="field"><label for="hp">Property price</label><input id="hp" type="number" min="0" step="100000" value="6000000"></div>
+        <div class="field"><label for="dp">Down payment (%)</label><input id="dp" type="number" min="0" max="100" step="1" value="30"></div>
+        <div class="field"><label for="ir">Annual interest rate (%)</label><input id="ir" type="number" min="0" step="0.25" value="9"></div>
+        <div class="field"><label for="yr-t">Loan term (years)</label><input id="yr-t" type="number" min="1" max="40" step="1" value="20"></div>
         <div class="result" aria-live="polite">
-          <div><small>Contribution per kg</small><b id="r-cm">–</b></div>
-          <div><small>Break-even harvest</small><b id="r-be">–</b></div>
-          <div><small>Break-even sales</small><b id="r-bs">–</b></div>
-          <div><small>Profit at expected harvest</small><b class="gold" id="r-pf">–</b></div>
+          <div><small>Loan amount</small><b id="r-loan">–</b></div>
+          <div><small>Monthly instalment (EMI)</small><b class="gold" id="r-emi">–</b></div>
+          <div><small>Total interest</small><b id="r-int">–</b></div>
+          <div><small>Total repaid</small><b id="r-tot">–</b></div>
           <div class="bar" aria-hidden="true"><i id="r-bar"></i></div>
           <p class="note" id="r-note"></p>
         </div>
@@ -489,27 +489,28 @@ footer .wrap span:last-child { font-family: var(--font-mono); }
     });
   });
 
-  // Break-even calculator
+  // Mortgage (EMI) calculator
   var fmt = new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 });
   function v(id) { return parseFloat(document.getElementById(id).value) || 0; }
   function set(id, t) { document.getElementById(id).textContent = t; }
   function calc() {
-    var fc = v('fc'), pr = v('pr'), vc = v('vc'), ex = v('ex'), cm = pr - vc;
-    set('r-cm', '৳ ' + fmt.format(cm));
-    if (cm <= 0) {
-      set('r-be', 'Never'); set('r-bs', '–'); set('r-pf', '৳ ' + fmt.format(ex * cm - fc));
+    var price = v('hp'), dp = Math.min(100, Math.max(0, v('dp'))), rate = v('ir'), years = v('yr-t');
+    var P = price * (1 - dp / 100), n = Math.round(years * 12), r = rate / 1200;
+    if (P <= 0 || n <= 0) {
+      ['r-loan', 'r-emi', 'r-int', 'r-tot'].forEach(function (id) { set(id, '–'); });
       document.getElementById('r-bar').style.width = '0';
-      set('r-note', 'The price does not cover the variable cost, so every extra kilo adds to the loss. Raise the price or cut feed and fingerling cost.');
+      set('r-note', 'Enter a property price, a down payment below 100% and a loan term to see the instalment.');
       return;
     }
-    var be = fc / cm, pf = ex * cm - fc;
-    set('r-be', fmt.format(Math.ceil(be)) + ' kg');
-    set('r-bs', '৳ ' + fmt.format(Math.ceil(be) * pr));
-    set('r-pf', '৳ ' + fmt.format(pf));
-    document.getElementById('r-bar').style.width = Math.min(100, ex ? (be / ex) * 100 : 100) + '%';
-    set('r-note', ex >= be
-      ? 'You pass break-even at ' + Math.round((be / ex) * 100) + '% of the expected harvest. The margin of safety is ' + fmt.format(Math.floor(ex - be)) + ' kg.'
-      : 'The expected harvest is ' + fmt.format(Math.ceil(be - ex)) + ' kg short of break-even. This cycle would run at a loss.');
+    var emi = r === 0 ? P / n : P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+    var total = emi * n, interest = total - P, firstInt = P * r;
+    set('r-loan', '৳ ' + fmt.format(P));
+    set('r-emi', '৳ ' + fmt.format(Math.round(emi)));
+    set('r-int', '৳ ' + fmt.format(Math.round(interest)));
+    set('r-tot', '৳ ' + fmt.format(Math.round(total)));
+    document.getElementById('r-bar').style.width = (P / total * 100) + '%';
+    set('r-note', 'Principal is ' + Math.round(P / total * 100) + '% of what you repay; interest is the rest. In the first month, ৳ ' +
+      fmt.format(Math.round(firstInt)) + ' of your instalment goes to interest and ৳ ' + fmt.format(Math.round(emi - firstInt)) + ' reduces the loan.');
   }
   document.getElementById('calc').addEventListener('input', calc);
   document.getElementById('calc').addEventListener('submit', function (e) { e.preventDefault(); });
